@@ -2,11 +2,13 @@ package hiber.dao;
 
 import hiber.model.User;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserDaoImp implements UserDao {
@@ -25,5 +27,17 @@ public class UserDaoImp implements UserDao {
       TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
       return query.getResultList();
    }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public List<?> getUserForCarModel(String model, int series) {
+      String hql = "from User user left join Car car on user.car = car.id where car.model = :model AND car.series = :series";
+      Query query = sessionFactory.getCurrentSession().createQuery(hql);
+      query.setParameter("model", model);
+      query.setParameter("series", series);
+
+      return query.list();
+   }
+
 
 }

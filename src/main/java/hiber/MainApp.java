@@ -7,6 +7,7 @@ import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 public class MainApp {
@@ -29,6 +30,21 @@ public class MainApp {
          System.out.println("Email = "+user.getEmail());
          System.out.println();
       }
+
+      String model = "Lada";
+      int series = 2107;
+      List<?> carUsers = userService.getUserForCarModel(model, series);
+
+      for (Object carUser : carUsers) {
+         Object[] row = (Object[]) carUser;
+         User user = (User) row[0];
+         Car car = (Car) row[1];
+         System.out.println("Id = " + user.getId());
+         System.out.println("First Name = " + user.getFirstName());
+         System.out.println("Car model = " + car.getModel() + ", series = " + car.getSeries());
+         System.out.println();
+      }
+
 
       context.close();
    }

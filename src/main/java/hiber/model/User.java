@@ -21,6 +21,14 @@ public class User {
    @Column(name = "email")
    private String email;
 
+   public Car getCar() {
+      return car;
+   }
+
+   public void setCar(Car car) {
+      this.car = car;
+   }
+
    @OneToOne
    @JoinColumn(name = "car")
    @Cascade(org.hibernate.annotations.CascadeType.ALL)
