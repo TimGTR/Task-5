@@ -1,4 +1,4 @@
-package hiber.config;
+package hiber;
 
 import hiber.model.Car;
 import hiber.model.User;
